@@ -6,7 +6,11 @@ def validate_numeric_list(lst: list[int | float], name: str) -> None:
         if not isinstance(value, (int, float)):
             raise TypeError(f"{name} must contain only int or float")
 
-def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int | float]:
+
+def give_bmi(
+    height: list[int | float],
+    weight: list[int | float],
+) -> list[int | float]:
     """Compute BMIs from height (m) and weight (kg)."""
     validate_numeric_list(height, "height")
     validate_numeric_list(weight, "weight")
@@ -14,6 +18,7 @@ def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int |
         raise ValueError("height and weight must be the same size")
 
     return [w / (h * h) for h, w in zip(height, weight)]
+
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
     """Return booleans indicating BMI > limit."""
