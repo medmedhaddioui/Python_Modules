@@ -1,5 +1,13 @@
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
+
+
+def display_axis(image: np.ndarray) -> None:
+    """ Display the image array using matplotlib. """
+
+    plt.imshow(image, cmap="grey")
+    plt.show()
 
 
 def ft_load(path: str) -> np.ndarray:
@@ -12,6 +20,8 @@ def ft_load(path: str) -> np.ndarray:
         image = Image.open(path)
         image_as_array = np.array(image)
         print(f"The shape of image is: {image_as_array.shape}")
+        print(image_as_array)
+        display_axis(image_as_array)
         return image_as_array
 
     except AssertionError as e:

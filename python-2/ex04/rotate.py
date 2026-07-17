@@ -5,12 +5,14 @@ import matplotlib.pyplot as plt
 
 def display_axis(image: np.ndarray) -> None:
     """ Display the image array using matplotlib. """
+
     plt.imshow(image, cmap="grey")
     plt.show()
 
 
 def zoom(old_shape: np.ndarray) -> np.ndarray:
     """ Slice and return a zoomed-in region of the image array. """
+
     new_shape = old_shape[100:500, 450:850, 0:1]
     return new_shape
 
@@ -31,6 +33,7 @@ def rotate(image: np.ndarray) -> np.ndarray:
 
 def main():
     """ Load image, zoom, rotate, and display it. """
+
     try:
         image_as_array = ft_load("animal.jpeg")
         zommed_image = zoom(image_as_array)
