@@ -1,5 +1,3 @@
-"""Module to load and inspect CSV datasets."""
-
 import pandas as pd
 
 
@@ -9,7 +7,7 @@ def load(path: str) -> pd.DataFrame:
         assert isinstance(path, str), "The path must be a string"
         assert path.endswith(".csv"), "The path must end with .csv"
         myData = pd.read_csv(path)
-        print(f"Loading dataset of dimensions {myData.shape}")
+        # print(f"Loading dataset of dimensions {myData.shape}")
         return myData
 
     except AssertionError as error:
