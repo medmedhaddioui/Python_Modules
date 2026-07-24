@@ -15,13 +15,13 @@ def display_graph(years: list, country: list):
     plt.show()
 
 
-def aff_line():
-    """Load dataset and display life expectancy graph for Morocco."""
+def aff_life_country(country: str):
+    """Load dataset and display life expectancy graph for a country."""
     df = load("life_expectancy_years.csv")
     if df is None:
         return
 
-    selected_country = df[df["country"] == "Morocco"]
+    selected_country = df[df["country"] == country]
     if selected_country.empty:
         raise ValueError("Error: Country not found in dataset.")
     country_series = selected_country.iloc[0, 1:]
@@ -36,7 +36,7 @@ def main():
     """Main function to execute the program."""
 
     try:
-        aff_line()
+        aff_life_country("Morocco")
     except Exception as error:
         print("Error:", error)
     except KeyboardInterrupt:
