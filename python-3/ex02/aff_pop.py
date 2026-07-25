@@ -1,19 +1,26 @@
 from load_csv import load
 import matplotlib.pyplot as plt
 
-def display_graph(years: list, country: list, second_country):
+def display_graph(years: list, country: list, second_country:list, country_name: str, second_country_name: str):
     """Display life expectancy graph for a country."""
+    
     plt.title("Population Projections")
     plt.xlabel("Year")
     plt.ylabel("Population")
 
-    BiggestYear = max(years)
-    SmallestYear = min(years)
-    plt.xticks(range(10000000, 60000000, 20000000))
+    end = 2050 - 1800 + 1
+    BiggestYear = max(years[:end])
+    SmallestYear = min(years[:end])
+
+    plt.plot(years[:end], country[:end], color="green", label=country_name)
+    plt.plot(years[:end], second_country[:end], label=second_country_name)
+
+    plt.yticks([20000000, 40000000, 60000000], ["20M", "40M", "60M"])
     plt.xticks(range(SmallestYear, BiggestYear, 40))
-    plt.plot(years, country)
-    plt.plot(years, second_country)
+
+    plt.legend(loc='lower right')
     plt.show()
+
 
 def convert(value):
     if value.endswith("M"):
@@ -25,23 +32,25 @@ def convert(value):
     else:
         return float(value)
 
-def population_country_cmp():
+
+def population_country_cmp(country_name: str, second_country_name: str):
+
     df = load("population_total.csv")
     if df is None:
-        return
-    my_country = df[df["country"] == "Belgium"]
-    country_to_comapre = df[df["country"] == "France"]
+        raise Exception("Error loading csv file")
+
+    my_country = df[df["country"] == country_name]
+    country_to_comapre = df[df["country"] == second_country_name]
 
     years = my_country.columns[1:].astype(int).tolist()
-
     country = [convert(value) for value in my_country.iloc[0, 1:].tolist()]
     second_country = [convert(value) for value in country_to_comapre.iloc[0, 1:].tolist()]
+    display_graph (years, country, second_country, country_name, second_country_name)
 
-    display_graph (years, country, second_country)
-    
+
 def main():
     try:
-        population_country_cmp()
+        population_country_cmp("France", "Belgium")
     except Exception  as error:
         print("Exception:", error)
     except KeyboardInterrupt:

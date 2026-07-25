@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 def display_graph(years: list, country: list):
     """Display life expectancy graph for a country."""
+
     plt.title("Morocco Life expectancy Projections")
     plt.xlabel("Year")
     plt.ylabel("Life expectancy")
@@ -17,9 +18,10 @@ def display_graph(years: list, country: list):
 
 def aff_life_country(country: str):
     """Load dataset and display life expectancy graph for a country."""
+
     df = load("life_expectancy_years.csv")
     if df is None:
-        return
+        raise Exception("Error loading csv files")
 
     selected_country = df[df["country"] == country]
     if selected_country.empty:
