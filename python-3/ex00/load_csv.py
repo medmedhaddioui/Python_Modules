@@ -1,5 +1,3 @@
-"""Module to load and inspect CSV datasets."""
-
 import pandas as pd
 
 

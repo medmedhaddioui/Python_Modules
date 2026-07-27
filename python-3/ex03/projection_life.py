@@ -1,7 +1,9 @@
 from load_csv import load
 import matplotlib.pyplot as plt
 
-def display_graph(year_life_expectancy: list, year_gdp: list, year:str):
+
+def display_graph(year_life_expectancy: list, year_gdp: list, year: str):
+    """Display scatter plot of life expectancy vs GDP per capita."""
 
     plt.title(year)
     plt.xlabel("Gross domestic product")
@@ -13,9 +15,10 @@ def display_graph(year_life_expectancy: list, year_gdp: list, year:str):
 
 
 def projection_life(year: str):
-    df = load ("income_per_person_gdppercapita_ppp_inflation_adjusted.csv")
-    df2 = load ("life_expectancy_years.csv")
-    if (df is None or df2 is None):
+    """Load life expectancy and income datasets, and start plotting."""
+    df = load("income_per_person_gdppercapita_ppp_inflation_adjusted.csv")
+    df2 = load("life_expectancy_years.csv")
+    if df is None or df2 is None:
         raise Exception("Error loading csv files")
 
     year_life_expectancy = df2[year].astype(float).tolist()
@@ -24,11 +27,12 @@ def projection_life(year: str):
     display_graph(year_life_expectancy, year_gdp, year)
 
 
-def main ():
+def main():
+    """Main execution entry point."""
     try:
         projection_life("1900")
     except Exception as error:
-        print ("Exception", error)
+        print("Exception", error)
     except KeyboardInterrupt:
         pass
 

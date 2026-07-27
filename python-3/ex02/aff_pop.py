@@ -1,9 +1,13 @@
 from load_csv import load
 import matplotlib.pyplot as plt
 
-def display_graph(years: list, country: list, second_country:list, country_name: str, second_country_name: str):
+
+def display_graph(
+    years: list, country: list, second_country: list,
+    country_name: str, second_country_name: str
+):
     """Display life expectancy graph for a country."""
-    
+
     plt.title("Population Projections")
     plt.xlabel("Year")
     plt.ylabel("Population")
@@ -23,6 +27,7 @@ def display_graph(years: list, country: list, second_country:list, country_name:
 
 
 def convert(value):
+    """Convert value ending with M, B, K into float."""
     if value.endswith("M"):
         return float(value[:-1]) * 1_000_000
     elif value.endswith("B"):
@@ -34,7 +39,7 @@ def convert(value):
 
 
 def population_country_cmp(country_name: str, second_country_name: str):
-
+    """Compare population of two countries and display projection."""
     df = load("population_total.csv")
     if df is None:
         raise Exception("Error loading csv file")
@@ -44,17 +49,24 @@ def population_country_cmp(country_name: str, second_country_name: str):
 
     years = my_country.columns[1:].astype(int).tolist()
     country = [convert(value) for value in my_country.iloc[0, 1:].tolist()]
-    second_country = [convert(value) for value in country_to_comapre.iloc[0, 1:].tolist()]
-    display_graph (years, country, second_country, country_name, second_country_name)
+    second_country = [
+        convert(value) for value in country_to_comapre.iloc[0, 1:].tolist()
+    ]
+    display_graph(
+        years, country, second_country,
+        country_name, second_country_name
+    )
 
 
 def main():
+    """Main execution of population comparison."""
     try:
         population_country_cmp("France", "Belgium")
-    except Exception  as error:
+    except Exception as error:
         print("Exception:", error)
     except KeyboardInterrupt:
         pass
-    
+
+
 if __name__ == "__main__":
-    main ()
+    main()

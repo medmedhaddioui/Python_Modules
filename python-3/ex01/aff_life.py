@@ -28,7 +28,9 @@ def aff_life_country(country: str):
         raise ValueError("Error: Country not found in dataset.")
     country_series = selected_country.iloc[0, 1:]
     if country_series.isna().all():
-        raise ValueError ("Error: no life expectancy data available for Morocco.")
+        raise ValueError(
+            "Error: no life expectancy data available for Morocco."
+        )
     years = selected_country.columns[1:].astype(int).tolist()
     country = country_series.astype(float).tolist()
     display_graph(years, country)
@@ -42,8 +44,8 @@ def main():
     except Exception as error:
         print("Error:", error)
     except KeyboardInterrupt:
-        pass 
-    
+        pass
+
 
 if __name__ == "__main__":
     main()
