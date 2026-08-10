@@ -1,0 +1,482 @@
+Yes. Let's **forget the formula symbols for a moment** and calculate Standard Deviation using numbers where the mean is **not one of the values**.
+
+We'll use:
+
+```text
+[1, 2, 4, 7]
+```
+
+The mean is:
+
+[
+\frac{1+2+4+7}{4} = \frac{14}{4}=3.5
+]
+
+Notice: **3.5 is not in our data.** This is useful because you can see what the formula is really doing.
+
+genui{"descriptive_statistics_sampling":{"type_id":"STANDARD_DEVIATION"}}
+
+# 1. What are we trying to measure?
+
+We want to know:
+
+> **How far are the numbers from their mean, on average?**
+
+Our numbers:
+
+```text
+1      2          4             7
+|------|----------|-------------|
+              3.5
+              mean
+```
+
+The mean is `3.5`.
+
+Now calculate how far every number is from `3.5`.
+
+| Number | Difference from mean |
+| -----: | -------------------: |
+|      1 |       1 - 3.5 = -2.5 |
+|      2 |       2 - 3.5 = -1.5 |
+|      4 |       4 - 3.5 = +0.5 |
+|      7 |       7 - 3.5 = +3.5 |
+
+We have:
+
+```text
+-2.5
+-1.5
++0.5
++3.5
+```
+
+But there is a problem.
+
+If we add them:
+
+[
+-2.5-1.5+0.5+3.5=0
+]
+
+Everything cancels out.
+
+So we **square** each difference.
+
+```text
+(-2.5)² = 6.25
+(-1.5)² = 2.25
+(+0.5)² = 0.25
+(+3.5)² = 12.25
+```
+
+Now everything is positive.
+
+Add them:
+
+[
+6.25+2.25+0.25+12.25=21
+]
+
+Now divide by the number of values:
+
+[
+\frac{21}{4}=5.25
+]
+
+**5.25 is the variance.**
+
+Finally, take the square root:
+
+[
+\sqrt{5.25}\approx2.291
+]
+
+So:
+
+[
+\boxed{\text{Standard Deviation}\approx2.291}
+]
+
+---
+
+# 2. Now let's understand the formula symbols
+
+The formula looks scary:
+
+[
+\sigma =
+\sqrt{
+\frac{1}{N}
+\sum_{i=1}^{N}(x_i-\mu)^2
+}
+]
+
+But **every symbol corresponds to something we just did**.
+
+Let's translate it into normal English:
+
+> Take every number, subtract the mean, square the result, add all those results, divide by how many numbers there are, then take the square root.
+
+That's literally all the formula says.
+
+---
+
+## `xᵢ`
+
+This is simply:
+
+> **the current number**
+
+For our data:
+
+```text
+[1, 2, 4, 7]
+```
+
+`xᵢ` means:
+
+```text
+first time → 1
+second time → 2
+third time → 4
+fourth time → 7
+```
+
+In Python, you would think of:
+
+```python
+for x in args:
+```
+
+So:
+
+[
+x_i
+]
+
+is basically your Python variable:
+
+```python
+x
+```
+
+---
+
+## `μ`
+
+This is the **mean**.
+
+For us:
+
+```text
+μ = 3.5
+```
+
+You already implemented this:
+
+```python
+mean(args)
+```
+
+So:
+
+[
+\mu
+]
+
+basically means:
+
+```python
+mean(args)
+```
+
+---
+
+## `(xᵢ - μ)`
+
+This means:
+
+> Take the current number and subtract the mean.
+
+For example, when `xᵢ = 1`:
+
+[
+1-3.5=-2.5
+]
+
+When `xᵢ = 7`:
+
+[
+7-3.5=3.5
+]
+
+In Python:
+
+```python
+x - mean(args)
+```
+
+---
+
+## `²`
+
+This simply means:
+
+> multiply the number by itself.
+
+For example:
+
+[
+(-2.5)^2=(-2.5)\times(-2.5)=6.25
+]
+
+In Python:
+
+```python
+(x - mean(args)) ** 2
+```
+
+---
+
+## `Σ`
+
+This is probably the most confusing symbol.
+
+[
+\sum
+]
+
+means:
+
+> **ADD EVERYTHING**
+
+That's it.
+
+In our example:
+
+[
+6.25+2.25+0.25+12.25
+]
+
+So in Python, `Σ` corresponds roughly to:
+
+```python
+sum(...)
+```
+
+---
+
+## `N`
+
+`N` means:
+
+> **How many numbers do we have?**
+
+Our data:
+
+```text
+[1, 2, 4, 7]
+```
+
+has 4 numbers.
+
+Therefore:
+
+[
+N=4
+]
+
+In Python:
+
+```python
+len(args)
+```
+
+---
+
+## `√`
+
+This means:
+
+> **square root**
+
+For example:
+
+[
+\sqrt{25}=5
+]
+
+because:
+
+[
+5^2=25
+]
+
+In Python:
+
+```python
+from math import sqrt
+
+sqrt(25)
+```
+
+---
+
+# 3. Now translate the entire formula
+
+The formula:
+
+[
+\sigma =
+\sqrt{
+\frac{1}{N}
+\sum_{i=1}^{N}(x_i-\mu)^2
+}
+]
+
+can be translated symbol-by-symbol:
+
+```text
+σ
+↓
+Standard Deviation
+
+√
+↓
+square root
+
+1 / N
+↓
+divide by number of values
+
+Σ
+↓
+add everything
+
+(xᵢ - μ)
+↓
+current value - mean
+
+²
+↓
+square it
+```
+
+So the formula becomes:
+
+```text
+                    ┌─────────────────────────────┐
+                    │                             │
+                    │  (value - mean)²            │
+                    │  + (value - mean)²          │
+                    │  + (value - mean)²          │
+                    │  + ...                      │
+                    │                             │
+                    └─────────────────────────────┘
+                                      ↓
+                              divide by N
+                                      ↓
+                                square root
+                                      ↓
+                           STANDARD DEVIATION
+```
+
+# 4. How this becomes Python
+
+Now compare the mathematical formula with Python:
+
+### Mathematics
+
+[
+\sigma =
+\sqrt{
+\frac{
+\sum(x_i-\mu)^2
+}{N}
+}
+]
+
+### Python concept
+
+```python
+sqrt(
+    sum(
+        (x - mean(args)) ** 2
+        for x in args
+    ) / len(args)
+)
+```
+
+That's the entire formula translated into Python.
+
+You can also write it in a more beginner-friendly way:
+
+```python
+average = mean(args)
+
+total = 0
+
+for x in args:
+    difference = x - average
+    squared = difference ** 2
+    total += squared
+
+variance = total / len(args)
+standard_deviation = sqrt(variance)
+```
+
+This version is **much better for learning**, because every line corresponds to one part of the mathematical process.
+
+---
+
+# 5. The most important relationship
+
+Don't think of Standard Deviation as a completely separate calculation.
+
+It's actually **two calculations**:
+
+### First:
+
+Calculate variance:
+
+```text
+differences
+    ↓
+squares
+    ↓
+add
+    ↓
+divide by N
+    ↓
+VARIANCE
+```
+
+### Then:
+
+```text
+VARIANCE
+    ↓
+square root
+    ↓
+STANDARD DEVIATION
+```
+
+So:
+
+[
+\boxed{SD=\sqrt{Variance}}
+]
+
+For our example:
+
+```text
+Data:                [1, 2, 4, 7]
+Mean:                 3.5
+Squared differences:  6.25, 2.25, 0.25, 12.25
+Sum:                  21
+Variance:             21 / 4 = 5.25
+Standard deviation:   √5.25 ≈ 2.291
+```
+
+**If you understand this example, you understand the formula.** The symbols are just a compact mathematical way of describing these exact steps.
