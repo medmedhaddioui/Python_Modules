@@ -11,5 +11,5 @@ def outer(x: int | float, function) -> object:
         if count == 0:
             count = x
         count =  function (count)
-        return count 
+        return count
     return inner
