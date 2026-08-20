@@ -12,19 +12,20 @@ def median(args: tuple) -> float:
     return sorted_args[index]
 
 
-def quartile (args: tuple) -> list:
+def quartile(args: tuple) -> list:
     sorted_args = sorted(args)
     q1_position = len(args) // 4
     q3_position = len(args) * 3 // 4
     if len(args) % 4 == 0:
-        q1 = (sorted_args[q1_position - 1] + sorted_args[q1_position] ) / 2
+        q1 = (sorted_args[q1_position - 1] + sorted_args[q1_position]) / 2
         q3 = (sorted_args[q3_position - 1] + sorted_args[q3_position]) / 2
     else:
-        q1  = sorted_args[q1_position]
+        q1 = sorted_args[q1_position]
         q3 = sorted_args[q3_position]
     return [float(q1), float(q3)]
 
-def var (args : tuple) -> float: 
+
+def var(args: tuple) -> float:
     mean_value = mean(args)
     length = len(args)
     distance = 0
@@ -33,11 +34,12 @@ def var (args : tuple) -> float:
         distance = arg - mean_value
         square_distance = distance ** 2
         distance_total += square_distance
-    return float (distance_total / length)
+    return float(distance_total / length)
+
 
 def ft_statistics(*args: any, **kwargs: any) -> None:
-    """Module to calculate basic statistics like mean, median, quartile, std, and var."""
-    
+    """Calculate mean, median, quartile, std, and var."""
+
     for a in args:
         if not isinstance(a, (int, float)):
             print('ERROR')
@@ -58,4 +60,3 @@ def ft_statistics(*args: any, **kwargs: any) -> None:
             print(f"std: {var(args) ** 0.5}")
         elif operation == "var":
             print(f"var: {var(args)}")
-

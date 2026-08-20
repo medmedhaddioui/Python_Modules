@@ -2,7 +2,7 @@
 
 
 def callLimit(limit: int):
-    """Decorator factory to limit the number of times a function can be called."""
+    """Decorator to limit function calls."""
     count = 0
 
     def callLimiter(function):
